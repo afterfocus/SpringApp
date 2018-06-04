@@ -5,12 +5,6 @@ import com.afterfocus.springapp.model.Person;
 import com.afterfocus.springapp.repository.DiskRepository;
 import com.afterfocus.springapp.repository.PersonRepository;
 
-/**
- *  !!!
- *  !!! Чтобы не возникло ошибок, нужно обнулить HIBERNATE_SEQUENCES (удалить вручную через SQL Developer?)
- *  !!!
- */
-
 public class InitializeData {
 
     public static void insertData(DiskRepository diskRepository, PersonRepository personRepository) {
@@ -58,5 +52,6 @@ public class InitializeData {
         diskRepository.issueDisk(10, 26);
         diskRepository.issueDisk(4, 28);
         diskRepository.issueDisk(1, 17);
+
     }
 }
