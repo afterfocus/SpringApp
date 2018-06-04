@@ -1,13 +1,26 @@
-package com.afterfocus.springapp;
+package com.afterfocus.springapp.config;
 
 import com.afterfocus.springapp.model.Disk;
 import com.afterfocus.springapp.model.Person;
 import com.afterfocus.springapp.repository.DiskRepository;
 import com.afterfocus.springapp.repository.PersonRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-public class InitializeData {
+@Component
+public class InitializingBean implements org.springframework.beans.factory.InitializingBean {
 
-    public static void insertData(DiskRepository diskRepository, PersonRepository personRepository) {
+    private final DiskRepository diskRepository;
+    private final PersonRepository personRepository;
+
+    @Autowired
+    public InitializingBean(DiskRepository diskRepository, PersonRepository personRepository) {
+        this.diskRepository = diskRepository;
+        this.personRepository = personRepository;
+    }
+
+    @Override
+    public void afterPropertiesSet() {
         diskRepository.deleteAll();
         personRepository.deleteAll();
         personRepository.save(new Person("Концова", "Яна", "+7(917)175-30-90"));
@@ -41,17 +54,5 @@ public class InitializeData {
         diskRepository.save(new Disk("Престиж", "The Prestige", 2006));
         diskRepository.save(new Disk("Гладиатор", "Gladiator", 2000));
         diskRepository.save(new Disk("Матрица", "The Matrix", 1999));
-        diskRepository.issueDisk(1, 12);
-        diskRepository.issueDisk(7, 30);
-        diskRepository.issueDisk(5,14);
-        diskRepository.issueDisk(4,15);
-        diskRepository.issueDisk(7,18);
-        diskRepository.issueDisk(10, 21);
-        diskRepository.issueDisk(4,23);
-        diskRepository.issueDisk(5, 24);
-        diskRepository.issueDisk(10, 26);
-        diskRepository.issueDisk(4, 28);
-        diskRepository.issueDisk(1, 17);
-
     }
 }
